@@ -2,7 +2,6 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.views.main;
 
 import java.util.Optional;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.views.map.LeafletMap;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.settings.SettingsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -34,7 +33,6 @@ import at.ac.htlhl.sebiorennotfallhilfesystem.views.about.AboutView;
 public class MainView extends AppLayout {
 
     private final Tabs menu;
-    private LeafletMap map;
 
     public MainView()
     {

@@ -25,9 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RouteAlias(value = "", layout = MainView.class)
 public class MapView extends VerticalLayout {
 
-    private WristbandService service;
+    private final WristbandService service;
 
-    private LeafletMap map;
+    private final LeafletMap map;
 
     @Autowired
     public MapView(WristbandService service)
@@ -57,7 +57,8 @@ public class MapView extends VerticalLayout {
         map.addMarkersAndZoom(service.getAll());
     }
 
-    private void showIntro() {
+    private void showIntro()
+    {
         H3 title = new H3("Welcome to the best fishing spots in the world!");
         Span subtitle = new Span("You can add a marker by clicking anywhere on the map.");
         Button ok = new Button("OK!", VaadinIcon.CHECK.create());
@@ -74,8 +75,8 @@ public class MapView extends VerticalLayout {
      * Called when the user clicks the map. Creates a {@link Dialog} for the user to
      * input further data and to save the data.
      */
-    private void mapClicked(LeafletMap.MapClickEvent event) {
-
+    private void mapClicked(LeafletMap.MapClickEvent event)
+    {
         // Create a dialog for adding a marker. This is not part of the custom
         // component, just normal Vaadin stuff
 
@@ -92,7 +93,8 @@ public class MapView extends VerticalLayout {
         markerName.focus();
 
         Button saveMarker = new Button("Save", VaadinIcon.CHECK.create(), e -> {
-            saveMarkerAndRefresh(markerName.getValue(), event.getLatitude(), event.getLongitude());
+            saveMarkerAndRefresh(markerName.getValue(),
+                    event.getLatitude(), event.getLongitude());
             popup.close();
         });
         saveMarker.addClickShortcut(Key.ENTER);
@@ -112,7 +114,8 @@ public class MapView extends VerticalLayout {
     /**
      * Save a new marker in the backend and add it to the map
      */
-    private void saveMarkerAndRefresh(String name, double latitude, double longitude) {
+    private void saveMarkerAndRefresh(String name, double latitude, double longitude)
+    {
         Wristband wristband = new Wristband(name, new Location(latitude, longitude));
         service.add(wristband);
         map.addMarker(wristband);

@@ -1,8 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.settings;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
-import at.ac.htlhl.sebiorennotfallhilfesystem.views.map.LeafletMap;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.PageTitle;

@@ -35,7 +35,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 *
 	 * @see InternalMarkerClickEvent
 	 */
-    private Map<Integer, Wristband> idToMarker = new HashMap<>();
+    private final Map<Integer, Wristband> idToMarker = new HashMap<>();
     private int nextMarkerId = 0;
 
 	public LeafletMap()
@@ -57,8 +57,8 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * Add all given markers to the map and zoom/pan the map so that all markers are
 	 * visible.
 	 */
-	public void addMarkersAndZoom(List<Wristband> wristbands) {
-
+	public void addMarkersAndZoom(List<Wristband> wristbands)
+	{
 		// Add all
 		wristbands.forEach(this::addMarker);
 
@@ -168,9 +168,8 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 */
     @DomEvent("map-click") // Defined in JS method _mapClicked()
     public static class MapClickEvent extends ComponentEvent<LeafletMap> {
-
-        private double latitude;
-        private double longitude;
+        private final double latitude;
+        private final double longitude;
 
         public MapClickEvent(LeafletMap source, boolean fromClient,
 							 @EventData("event.detail.lat") double latitude,
@@ -181,11 +180,13 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
             this.longitude = longitude;
         }
 
-        public double getLatitude() {
+        public double getLatitude()
+		{
             return latitude;
         }
 
-        public double getLongitude() {
+        public double getLongitude()
+		{
             return longitude;
         }
     }
@@ -207,7 +208,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 */
     @DomEvent("marker-click") // Defined in JS method _markerClicked()
     public static class InternalMarkerClickEvent extends ComponentEvent<LeafletMap> {
-        private final Integer id;
+    	private final Integer id;
 
         public InternalMarkerClickEvent(LeafletMap source, boolean fromClient,
 										@EventData("event.detail.id") Integer id)
