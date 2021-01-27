@@ -1,6 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.MQTTWristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -35,7 +36,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 *
 	 * @see InternalMarkerClickEvent
 	 */
-    private final Map<Integer, Wristband> idToMarker = new HashMap<>();
+    private final Map<Integer, MQTTWristband> idToMarker = new HashMap<>();
     private int nextMarkerId = 0;
 
 	public LeafletMap()
@@ -57,7 +58,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * Add all given markers to the map and zoom/pan the map so that all markers are
 	 * visible.
 	 */
-	public void addMarkersAndZoom(List<Wristband> wristbands)
+	public void addMarkersAndZoom(List<MQTTWristband> wristbands)
 	{
 		// Add all
 		wristbands.forEach(this::addMarker);
@@ -79,7 +80,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	/**
 	 * Add a marker to the map.
 	 */
-    public void addMarker(Wristband wristband)
+    public void addMarker(MQTTWristband wristband)
 	{
         // save id for later use in events
         idToMarker.put(nextMarkerId, wristband);

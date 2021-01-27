@@ -2,6 +2,7 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.MQTTWristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -115,7 +116,7 @@ public class MapView extends VerticalLayout {
      */
     private void saveMarkerAndRefresh(String name, double latitude, double longitude)
     {
-        Wristband wristband = new Wristband(name, new Location(latitude, longitude));
+        MQTTWristband wristband = new MQTTWristband(name, new Location(latitude, longitude));
         Data.wristbands.add(wristband);
         map.addMarker(wristband);
     }

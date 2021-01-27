@@ -10,18 +10,18 @@ import java.util.List;
 
 public class WristbandService {
 
-	private final List<Wristband> wristbands = new ArrayList<>();
+	private final List<MQTTWristband> wristbands = new ArrayList<>();
 
 	private void init()
 	{
 	}
 
-	public List<Wristband> getAll()
+	public List<MQTTWristband> getAll()
 	{
 		return Collections.unmodifiableList(wristbands);
 	}
 
-	public void add(Wristband wristband)
+	public void add(MQTTWristband wristband)
 	{
 		// protect concurrent access since WristbandService is a singleton
 		synchronized (wristbands) {
