@@ -1,8 +1,8 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.WristbandService;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -24,19 +24,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PageTitle("Map")
 @RouteAlias(value = "", layout = MainView.class)
 public class MapView extends VerticalLayout {
-
-    private final WristbandService service;
-
     private final LeafletMap map;
 
     @Autowired
-    public MapView(WristbandService service)
+    public MapView()
     {
         setId("map-view");
         //add(new Text("Content placeholder"));
 
-        this.service = service;
-
+        /*Data.wristbands.add(new Wristband("wristband1", new Location(48.561613, 16.077118)));
+        Data.wristbands.add(new Wristband("wristband1", new Location(48.393650, 16.214447)));
+        Data.wristbands.add(new Wristband("wristband1", new Location(48.354424, 16.322937)));
+*/
         setSizeFull();
         setPadding(false);
         setSpacing(false);
@@ -54,7 +53,7 @@ public class MapView extends VerticalLayout {
         map.addMapClickListener(this::mapClicked);
 
         // Add all known markers to the map
-        map.addMarkersAndZoom(service.getAll());
+        map.addMarkersAndZoom(Data.wristbands.getAll());
     }
 
     private void showIntro()
@@ -117,7 +116,7 @@ public class MapView extends VerticalLayout {
     private void saveMarkerAndRefresh(String name, double latitude, double longitude)
     {
         Wristband wristband = new Wristband(name, new Location(latitude, longitude));
-        service.add(wristband);
+        Data.wristbands.add(wristband);
         map.addMarker(wristband);
     }
 

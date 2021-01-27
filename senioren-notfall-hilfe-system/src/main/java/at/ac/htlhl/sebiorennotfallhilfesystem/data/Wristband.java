@@ -1,7 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
 public class Wristband {
-
 	private String name;
 	private Location location;
 

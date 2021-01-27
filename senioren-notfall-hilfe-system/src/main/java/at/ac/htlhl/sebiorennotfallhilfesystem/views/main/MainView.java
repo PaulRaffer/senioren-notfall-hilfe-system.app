@@ -2,6 +2,9 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.views.main;
 
 import java.util.Optional;
 
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.settings.SettingsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -36,6 +39,10 @@ public class MainView extends AppLayout {
 
     public MainView()
     {
+        Data.wristbands.add(new Wristband("wristband1", new Location(48.561613, 16.077118)));
+        Data.wristbands.add(new Wristband("wristband2", new Location(48.393650, 16.214447)));
+        Data.wristbands.add(new Wristband("wristband3", new Location(48.354424, 16.322937)));
+
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
@@ -106,7 +113,8 @@ public class MainView extends AppLayout {
 
     private Optional<Tab> getTabForComponent(Component component)
     {
-        return menu.getChildren().filter(tab -> ComponentUtil.getData(tab, Class.class).equals(component.getClass()))
+        return menu.getChildren().filter(tab ->
+                ComponentUtil.getData(tab, Class.class).equals(component.getClass()))
                 .findFirst().map(Tab.class::cast);
     }
 }
