@@ -2,10 +2,7 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.views.main;
 
 import java.util.Optional;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.MQTTWristband;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.*;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.settings.SettingsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -40,9 +37,10 @@ public class MainView extends AppLayout {
 
     public MainView()
     {
-        Data.wristbands.add(new MQTTWristband("wristband1", new Location(48.561613, 16.077118)));
-        Data.wristbands.add(new MQTTWristband("wristband2", new Location(48.393650, 16.214447)));
-        Data.wristbands.add(new MQTTWristband("wristband3", new Location(48.354424, 16.322937)));
+        Data.wristbands = new WristbandService();
+        Data.wristbands.add(new MqttWristband(Data.mqttClient, "wristband1", new Location(48.561613, 16.077118)));
+        Data.wristbands.add(new MqttWristband(Data.mqttClient, "wristband2", new Location(48.393650, 16.214447)));
+        Data.wristbands.add(new MqttWristband(Data.mqttClient, "wristband3", new Location(48.354424, 16.322937)));
 
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();

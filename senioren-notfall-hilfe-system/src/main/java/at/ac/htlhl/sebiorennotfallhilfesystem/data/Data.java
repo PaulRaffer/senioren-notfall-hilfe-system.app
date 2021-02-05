@@ -1,9 +1,8 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 
 public class Data {
-	public static WristbandService wristbands = new WristbandService();
-	//public static final List<Wristband> wristbands = new ArrayList<>();
+	public static WristbandService wristbands;// = new WristbandService();
+	public static MqttClient mqttClient;
 }
