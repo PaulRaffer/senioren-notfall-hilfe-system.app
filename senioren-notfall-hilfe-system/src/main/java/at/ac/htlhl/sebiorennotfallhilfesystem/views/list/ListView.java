@@ -1,6 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.list;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.grid.Grid;

@@ -1,13 +1,11 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-/**
- * Simple data object representing a location on a map.
- */
 public class Location<T> {
 
 	private T latitude;
 	private T longitude;
 	private T altitude;
+
 
 	public Location()
 	{

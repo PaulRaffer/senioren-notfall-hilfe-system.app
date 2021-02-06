@@ -1,7 +1,5 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.views.map.LeafletMap;
-
 public class Wristband {
 
 	private String app_id;
@@ -13,9 +11,9 @@ public class Wristband {
 	private WristbandPayload payload_fields = new WristbandPayload();
 	private WristbandMetadata metadata = new WristbandMetadata();
 
+
 	public Wristband()
 	{
-
 	}
 
 	public Wristband(
@@ -36,20 +34,20 @@ public class Wristband {
 		this.payload_fields = payload_fields;
 	}
 
-	/*public Wristband(String name, Location location)
+	public void set(final MqttWristband wristband)
 	{
-		//this.name = name;
-		//this.location = location;
-	}*/
+		this.app_id = wristband.getApp_id();
+		this.dev_id = wristband.getDev_id();
+		this.hardware_serial = wristband.getHardware_serial();
+		this.port = wristband.getPort();
+		this.counter = wristband.getCounter();
+		this.payload_raw = wristband.getPayload_raw();
+		this.payload_fields = wristband.getPayload_fields();
+	}
 
 	public String getApp_id()
 	{
 		return app_id;
-	}
-
-	public void setApp_id(String app_id)
-	{
-		this.app_id = app_id;
 	}
 
 	public String getDev_id()
@@ -57,18 +55,9 @@ public class Wristband {
 		return dev_id;
 	}
 
-	public void setDev_id(String dev_id) {
-		this.dev_id = dev_id;
-	}
-
 	public String getHardware_serial()
 	{
 		return hardware_serial;
-	}
-
-	public void setHardware_serial(String hardware_serial)
-	{
-		this.hardware_serial = hardware_serial;
 	}
 
 	public int getPort()
@@ -76,19 +65,9 @@ public class Wristband {
 		return port;
 	}
 
-	public void setPort(int port)
-	{
-		this.port = port;
-	}
-
 	public int getCounter()
 	{
 		return counter;
-	}
-
-	public void setCounter(int counter)
-	{
-		this.counter = counter;
 	}
 
 	public String getPayload_raw()
@@ -96,41 +75,16 @@ public class Wristband {
 		return payload_raw;
 	}
 
-	public void setPayload_raw(String payload_raw)
-	{
-		this.payload_raw = payload_raw;
-	}
-
 	public WristbandPayload getPayload_fields()
 	{
 		return payload_fields;
 	}
 
-	public void setPayload_fields(WristbandPayload payload_fields)
-	{
-		this.payload_fields = payload_fields;
-	}
-
 	public String getName() { return ""; }
-
-
-	/*public Location<Double> getLocation()
-	{
-		return new Location<>();
-	}*/
-
-	/*public WristbandPayload.Status getStatus()
-	{
-		return WristbandPayload.Status.OK;
-	};*/
 
 	public WristbandMetadata getMetadata()
 	{
 		return metadata;
 	}
 
-	public void setMetadata(WristbandMetadata metadata)
-	{
-		this.metadata = metadata;
-	}
 }

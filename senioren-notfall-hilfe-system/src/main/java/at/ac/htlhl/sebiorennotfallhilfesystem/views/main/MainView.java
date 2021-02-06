@@ -39,9 +39,9 @@ public class MainView extends AppLayout {
     {
         Data.wristbands = new WristbandService();
         Data.wristbands.add(new MqttWristband());
-        /*Data.wristbands.add(new MqttWristband(Data.mqttClient, "wristband2", new Location<Double>(48.393650, 16.214447)));
-        Data.wristbands.add(new MqttWristband(Data.mqttClient, "wristband3", new Location<Double>(48.354424, 16.322937)));
-*/
+        Data.wristbands.add(new MqttWristband());
+        Data.wristbands.add(new MqttWristband());
+
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));

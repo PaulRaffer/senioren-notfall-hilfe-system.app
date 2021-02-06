@@ -1,9 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
-import com.vaadin.flow.templatemodel.TemplateModel;
-
-public class WristbandPayload {
+public class WristbandPayload extends Location<Double> {
 
 	public enum Status {
 		OK,
@@ -11,36 +8,19 @@ public class WristbandPayload {
 		EMERGENCY,
 	}
 
-	//private String name;
 	private Status status;
 	private double voltage;
 	private double hdop;
-	private double latitude;
-	private double longitude;
-	private double altitude;
+
 
 	public WristbandPayload()
 	{
+		super((double) 0, (double) 0, (double) 0);
 	}
 
 	public Location<Double> getLocation()
 	{
-		return new Location<>(latitude, longitude, altitude);
-	}
-
-	public double getLatitude()
-	{
-		return latitude;
-	}
-
-	public double getLongitude()
-	{
-		return longitude;
-	}
-
-	public double getAltitude()
-	{
-		return altitude;
+		return new Location<>(getLatitude(), getLongitude(), getAltitude());
 	}
 
 	public Status getStatus()

@@ -1,7 +1,5 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
-import com.vaadin.flow.templatemodel.TemplateModel;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -12,8 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class WristbandService {
-
-
 
 	private final List<Wristband> wristbands = new ArrayList<>();
 
