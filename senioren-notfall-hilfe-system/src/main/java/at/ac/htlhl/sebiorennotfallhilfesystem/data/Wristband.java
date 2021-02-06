@@ -34,7 +34,7 @@ public class Wristband {
 		this.payload_fields = payload_fields;
 	}
 
-	public void set(final MqttWristband wristband)
+	public void set(final Wristband wristband)
 	{
 		this.app_id = wristband.getApp_id();
 		this.dev_id = wristband.getDev_id();

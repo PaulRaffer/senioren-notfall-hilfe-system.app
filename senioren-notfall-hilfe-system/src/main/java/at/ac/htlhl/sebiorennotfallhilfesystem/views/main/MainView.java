@@ -23,6 +23,7 @@ import com.vaadin.flow.server.PWA;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.map.MapView;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.list.ListView;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.about.AboutView;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -38,9 +39,21 @@ public class MainView extends AppLayout {
     public MainView()
     {
         Data.wristbands = new WristbandService();
-        Data.wristbands.add(new MqttWristband());
-        Data.wristbands.add(new MqttWristband());
-        Data.wristbands.add(new MqttWristband());
+        for (int i = 0; i < 3; i++) {
+            Data.wristbands.add(new MqttWristband(
+                    "tcp://eu.thethings.network:1883",
+                    "ApplicationServer",
+                    "senioren-notfall-hilfe-system",
+                    "ttn-account-v2.xqhU5_c5SPEKLNDpg38Ah5er2XqEZI0Gxt_iobseDmQ",
+                    "#"));
+
+            /*Data.wristbands.add(new MqttWristband(
+                    "tcp://10.0.0.9:1883",
+                    "ApplicationServer",
+                    "my-new-application",
+                    "NNSXS.75BJZKY5I6IVDGAOVXLXOXOW6DB2Y7A534P53KA.JTZIWSFG6LADZD2YBLF2YJUV5PL2572J5TFC7N3AJENYOKCU6D7A",
+                    "#"));*/
+        }
 
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
