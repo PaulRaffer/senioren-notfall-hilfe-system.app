@@ -15,6 +15,7 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -28,6 +29,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 /**
  * The main view is a top-level placeholder for other views.
  */
+@Push
 @CssImport(value = "./styles/views/main/main-view.css", themeFor = "vaadin-app-layout")
 @CssImport("./styles/views/main/main-view.css")
 @PWA(name = "Senioren-Notfall-Hilfe-System", shortName = "Senioren-Notfall-Hilfe-System", enableInstallPrompt = false)
