@@ -19,12 +19,19 @@ public class WristbandView extends Div implements HasUrlParameter<String> {
 	public WristbandView()
 	{
 		setId("wristband-view");
+
 		//Data.wristbands.getAll().forEach(w -> add(new Text(w.getName())));
 	}
 
 	@Override
 	public void setParameter(BeforeEvent event, String wristbandName)
 	{
+		/*Wristband w = Data.wristbands.getWristbandByName(wristbandName);
 		add(new Text(wristbandName));
+		add(new Text(w.getName()));
+		add(new Text(String.valueOf(w.getLocation().getLatitude())));
+		add(new Text(String.valueOf(w.getLocation().getLongitude())));
+		add(new Text(String.valueOf(w.getLocation().getAltitude())));
+		add(new Text(String.valueOf(w.getStatus())));*/
 	}
 }

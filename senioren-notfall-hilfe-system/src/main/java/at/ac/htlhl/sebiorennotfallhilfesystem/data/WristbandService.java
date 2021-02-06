@@ -13,11 +13,7 @@ import java.util.List;
 
 public class WristbandService {
 
-	public enum Status {
-		OK,
-		LOW_BATTERY,
-		EMERGENCY,
-	}
+
 
 	private final List<Wristband> wristbands = new ArrayList<>();
 
@@ -51,6 +47,16 @@ public class WristbandService {
 	public List<Wristband> getAll()
 	{
 		return Collections.unmodifiableList(wristbands);
+	}
+
+	public Wristband getWristbandByName(String name)
+	{
+		for (Wristband w : wristbands) {
+			if (w.getName().equals(name)) {
+				return w;
+			}
+		}
+		return null;
 	}
 
 	public void add(Wristband wristband)

@@ -54,7 +54,7 @@ public class MapView extends VerticalLayout {
         map.addMapClickListener(this::mapClicked);
 
         // Add all known markers to the map
-        map.addMarkersAndZoom(Data.wristbands.getAll());
+        map.addMarkersAndZoom(Data.wristbands.getAll());/**/
     }
 
     private void showIntro()
@@ -116,9 +116,9 @@ public class MapView extends VerticalLayout {
      */
     private void saveMarkerAndRefresh(String name, double latitude, double longitude)
     {
-        Wristband wristband = new Wristband(name, new Location(latitude, longitude));
+        /*Wristband wristband = new Wristband(name, new Location(latitude, longitude));
         Data.wristbands.add(wristband);
-        map.addMarker(wristband);
+        map.addMarker(wristband);*/
     }
 
 }

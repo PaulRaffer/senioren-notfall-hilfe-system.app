@@ -1,7 +1,13 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadContext;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.HasSize;
+import elemental.json.Json;
+import elemental.json.JsonObject;
+import elemental.json.JsonFactory;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -18,15 +24,14 @@ import java.nio.file.Path;
 
 public class MqttWristband extends Wristband {
 
-	public MqttWristband(MqttClient client, String name, Location location)
+	public MqttWristband()
 	{
-		super(name, location);
+		//super(name, location);
 		String topic = "#";
 
 		try {
-			client.subscribe(topic, (t, msg) -> {
-				byte[] payload = msg.getPayload();
-				decode(payload);
+			Data.mqttClient.subscribe(topic, (t, msg) -> {
+				decode(new String(msg.getPayload()));
 			});
 		}
 		catch (MqttException e) {
@@ -34,48 +39,32 @@ public class MqttWristband extends Wristband {
 		}
 	}
 
-	private void decode(byte[] payload)
+	public void set(final MqttWristband wristband)
 	{
-		//payload = new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		// Decode an uplink message from a buffer
-		// (array) of bytes to an object of fields.
-		int i = 0;
-		int latitude = 0;
-		int longitude = 0;
-		int voltage = 0;
-		int n = 0;  // Um richtig shiften zu können!
-		int sizelong = 4; // Um richtig shiften zu können! Ansonsten würde falscher Wert entstehen!
+		this.setApp_id(wristband.getApp_id());
+		this.setDev_id(wristband.getDev_id());
+		this.setHardware_serial(wristband.getHardware_serial());
+		this.setPort(wristband.getPort());
+		this.setCounter(wristband.getCounter());
+		this.setPayload_raw(wristband.getPayload_raw());
+		this.setPayload_fields(wristband.getPayload_fields());
+	}
 
+	private void decode(String dataJson)
+	{
+		System.out.println(dataJson);
+		dataJson = "{\"app_id\":\"senioren-notfall-hilfe-system\",\"dev_id\":\"armband_v01_4\",\"hardware_serial\":\"0000000000000004\",\"port\":15,\"counter\":10327,\"payload_raw\":\"AAAAAAAAAAAAAAAAAIMv\",\"payload_fields\":{\"altitude\":0,\"hdop\":0,\"latitude\":14,\"longitude\":16,\"status\":0,\"voltage\":3.3583},\"metadata\":{\"time\":\"2021-02-05T22:25:18.327075713Z\",\"frequency\":867.5,\"modulation\":\"LORA\",\"data_rate\":\"SF7BW125\",\"airtime\":66816000,\"coding_rate\":\"4/5\",\"gateways\":[{\"gtw_id\":\"eui-58a0cbfffe8021bb\",\"timestamp\":2635901532,\"time\":\"2021-02-05T22:25:18.314580917Z\",\"channel\":0,\"rssi\":-59,\"snr\":7.75,\"rf_chain\":0}]}}";
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			final MqttWristband wristband = mapper.readValue(dataJson, MqttWristband.class);
+			set(wristband);
 
-		if(payload[0] == 0x00) {
-			setStatus(0);  // Normaler Grund (Einfach die Zeit abgekaufen)
+			System.out.println(getApp_id());
+			System.out.println(wristband.getPayload_fields().getLatitude());
 		}
-		else if(payload[0] == 0xAA) {
-			setStatus(1);  // Akku wird schwach (5% oder weniger!)
+		catch (JsonProcessingException e) {
+			e.printStackTrace();
 		}
-		else if(payload[0] == 0xFF) {
-			setStatus(2);  // Notfall!!!
-		}
-
-		for (i = 1; i <= 1 + sizelong-1; i++) {
-			latitude = latitude | (payload[i] << (sizelong-1-n)*8);  // Richtiges Byte an richtige Stelle schieben!
-			n++;
-		}
-		getLocation().setLatitude(latitude / 1000000);
-
-		n = 0;
-		for (; i <= 1 + 2*sizelong-1; i++) {
-			longitude = longitude | (payload[i] << (sizelong-1-n)*8);  // Richtiges Byte an richtige Stelle schieben!
-			n++;
-		}
-		getLocation().setLongitude(longitude / 1000000);
-
-		n = 0;
-		for (; i <= 1 + 3*sizelong-1; i++) {
-			voltage = voltage | (payload[i] << (sizelong-1-n)*8);  // Richtiges Byte an richtige Stelle schieben!
-			n++;
-		}
-		setVoltage(voltage / 10000);
 	}
 
 }

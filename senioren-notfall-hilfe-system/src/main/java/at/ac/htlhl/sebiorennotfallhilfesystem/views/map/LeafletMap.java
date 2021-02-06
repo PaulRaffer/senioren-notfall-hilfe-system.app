@@ -65,14 +65,14 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 
 		// find top left and bottom right, then zoom the map
 		double lat1 = wristbands.stream().map(s ->
-				s.getLocation().getLatitude()).min(Double::compare).orElse(0d);
+				s.getPayload_fields().getLatitude()).min(Double::compare).orElse(0d);
 		double long1 = wristbands.stream().map(s ->
-				s.getLocation().getLongitude()).min(Double::compare).orElse(0d);
+				s.getPayload_fields().getLongitude()).min(Double::compare).orElse(0d);
 
 		double lat2 = wristbands.stream().map(s ->
-				s.getLocation().getLatitude()).max(Double::compare).orElse(0d);
+				s.getPayload_fields().getLatitude()).max(Double::compare).orElse(0d);
 		double long2 = wristbands.stream().map(s ->
-				s.getLocation().getLongitude()).max(Double::compare).orElse(0d);
+				s.getPayload_fields().getLongitude()).max(Double::compare).orElse(0d);
 
 		fitBounds(lat1, long1, lat2, long2);
 	}
@@ -87,8 +87,8 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 
         // call client side to actually add marker
         getElement().callJsFunction("addMarker",
-				wristband.getLocation().getLatitude(),
-				wristband.getLocation().getLongitude(),
+				wristband.getPayload_fields().getLatitude(),
+				wristband.getPayload_fields().getLongitude(),
 				wristband.getName(), nextMarkerId++);
     }
 

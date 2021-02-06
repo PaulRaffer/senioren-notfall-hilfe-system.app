@@ -1,41 +1,58 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
 /**
- * Simple data object representing a marker on a map.
+ * Simple data object representing a location on a map.
  */
-public class Location {
+public class Location<T> {
 
-	private double latitude;
-	private double longitude;
+	private T latitude;
+	private T longitude;
+	private T altitude;
 
 	public Location()
 	{
 	}
 
-	public Location(double latitude, double longitude)
+	public Location(T latitude, T longitude)
 	{
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 
-	public double getLatitude()
+	public Location(T latitude, T longitude, T altitude)
+	{
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.altitude = altitude;
+	}
+
+	public T getLatitude()
 	{
 		return latitude;
 	}
 
-	public void setLatitude(double latitude)
+	public void setLatitude(T latitude)
 	{
 		this.latitude = latitude;
 	}
 
-	public double getLongitude()
+	public T getLongitude()
 	{
 		return longitude;
 	}
 
-	public void setLongitude(double longitude)
+	public void setLongitude(T longitude)
 	{
 		this.longitude = longitude;
 	}
 
+	public T getAltitude()
+	{
+		return altitude;
+	}
+
+	public void setAltitude(T altitude)
+	{
+		this.altitude = altitude;
+	}
 }

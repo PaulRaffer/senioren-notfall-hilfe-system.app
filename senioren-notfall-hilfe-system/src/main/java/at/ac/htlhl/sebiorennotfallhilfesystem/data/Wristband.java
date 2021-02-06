@@ -1,66 +1,136 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
-import com.vaadin.flow.templatemodel.TemplateModel;
+import at.ac.htlhl.sebiorennotfallhilfesystem.views.map.LeafletMap;
 
 public class Wristband {
-	private String name;
-	private int status;
-	private int battery;
-	private int voltage;
-	private Location location;
 
-	public Wristband(String name, Location location)
+	private String app_id;
+	private String dev_id;
+	private String hardware_serial;
+	private int port;
+	private int counter;
+	private String payload_raw;
+	private WristbandPayload payload_fields = new WristbandPayload();
+	private WristbandMetadata metadata = new WristbandMetadata();
+
+	public Wristband()
 	{
-		this.name = name;
-		this.location = location;
+
 	}
 
-	public String getName()
+	public Wristband(
+			String app_id,
+			String dev_id,
+			String hardware_serial,
+			int port,
+			int counter,
+			String payload_raw,
+			WristbandPayload payload_fields)
 	{
-		return name;
+		this.app_id = app_id;
+		this.dev_id = dev_id;
+		this.hardware_serial = hardware_serial;
+		this.port = port;
+		this.counter = counter;
+		this.payload_raw = payload_raw;
+		this.payload_fields = payload_fields;
 	}
 
-	public void setName(String name)
+	/*public Wristband(String name, Location location)
 	{
-		this.name = name;
-	}
+		//this.name = name;
+		//this.location = location;
+	}*/
 
-	public Location getLocation()
+	public String getApp_id()
 	{
-		return location;
+		return app_id;
 	}
 
-	public void setLocation(Location location)
+	public void setApp_id(String app_id)
 	{
-		this.location = location;
+		this.app_id = app_id;
 	}
 
-	public int getStatus()
+	public String getDev_id()
 	{
-		return status;
+		return dev_id;
 	}
 
-	public void setStatus(int status)
+	public void setDev_id(String dev_id) {
+		this.dev_id = dev_id;
+	}
+
+	public String getHardware_serial()
 	{
-		this.status = status;
+		return hardware_serial;
 	}
 
-	public int getBattery()
+	public void setHardware_serial(String hardware_serial)
 	{
-		return battery;
+		this.hardware_serial = hardware_serial;
 	}
 
-	public void setBattery(int battery)
+	public int getPort()
 	{
-		this.battery = battery;
+		return port;
 	}
 
-	public int getVoltage() {
-		return voltage;
+	public void setPort(int port)
+	{
+		this.port = port;
 	}
 
-	public void setVoltage(int voltage) {
-		this.voltage = voltage;
+	public int getCounter()
+	{
+		return counter;
+	}
+
+	public void setCounter(int counter)
+	{
+		this.counter = counter;
+	}
+
+	public String getPayload_raw()
+	{
+		return payload_raw;
+	}
+
+	public void setPayload_raw(String payload_raw)
+	{
+		this.payload_raw = payload_raw;
+	}
+
+	public WristbandPayload getPayload_fields()
+	{
+		return payload_fields;
+	}
+
+	public void setPayload_fields(WristbandPayload payload_fields)
+	{
+		this.payload_fields = payload_fields;
+	}
+
+	public String getName() { return ""; }
+
+
+	/*public Location<Double> getLocation()
+	{
+		return new Location<>();
+	}*/
+
+	/*public WristbandPayload.Status getStatus()
+	{
+		return WristbandPayload.Status.OK;
+	};*/
+
+	public WristbandMetadata getMetadata()
+	{
+		return metadata;
+	}
+
+	public void setMetadata(WristbandMetadata metadata)
+	{
+		this.metadata = metadata;
 	}
 }
