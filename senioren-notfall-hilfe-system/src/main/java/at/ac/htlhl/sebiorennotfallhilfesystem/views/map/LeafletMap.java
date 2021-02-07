@@ -96,6 +96,13 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 				wristband.getName(), nextMarkerId++);
     }
 
+    public void removeAllMarkers()
+	{
+		idToMarker.clear();
+
+		getElement().callJsFunction("removeAllMarkers");
+	}
+
 	/**
 	 * Zoom/Pan map to the given rectangle
 	 *

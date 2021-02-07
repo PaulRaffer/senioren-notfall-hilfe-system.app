@@ -3,6 +3,7 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.views.list;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
+import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.Text;
@@ -19,10 +20,8 @@ import java.util.List;
 
 @Route(value = "list", layout = MainView.class)
 @PageTitle("List")
-public class ListView extends VerticalLayout {
-    public Grid<Wristband> grid = new Grid<>(Wristband.class);
-
-    private UpdateThread update;
+public class ListView extends UpdateView<ListView> {
+    private Grid<Wristband> grid = new Grid<>(Wristband.class);
 
     public ListView()
     {
@@ -43,46 +42,8 @@ public class ListView extends VerticalLayout {
                 "payload_fields.hdop");
 
         add(grid);
-    }
 
-    @Override
-    protected void onAttach(AttachEvent e)
-    {
-        update = new UpdateThread(e.getUI(), this);
-        update.start();
-    }
-
-    @Override
-    protected void onDetach(DetachEvent e)
-    {
-        update.interrupt();
-        update = null;
-    }
-
-    private static class UpdateThread extends Thread {
-        private final UI ui;
-        private final ListView view;
-
-        public UpdateThread(final UI ui, final ListView view)
-        {
-            this.ui = ui;
-            this.view = view;
-        }
-
-        @Override
-        public void run()
-        {
-            try {
-                while (true) {
-                    Thread.sleep(1000);
-                    ui.access(() -> {
-                        view.grid.setItems(Data.wristbands.getAll());
-                    });
-                }
-            }
-            catch (InterruptedException e) {
-                // We don't case if sleep is interrupted.
-            }
-        }
+        setUpdateFunction(view ->
+                view.grid.setItems(Data.wristbands.getAll()));
     }
 }

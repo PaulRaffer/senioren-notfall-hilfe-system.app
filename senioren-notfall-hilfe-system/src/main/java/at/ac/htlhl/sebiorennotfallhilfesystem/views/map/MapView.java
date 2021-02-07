@@ -4,6 +4,7 @@ import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.MqttWristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
+import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -25,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route(value = "map", layout = MainView.class)
 @PageTitle("Map")
 @RouteAlias(value = "", layout = MainView.class)
-public class MapView extends VerticalLayout {
+public class MapView extends UpdateView<MapView> {
     private final LeafletMap map;
 
     @Autowired
@@ -47,6 +48,12 @@ public class MapView extends VerticalLayout {
 
         // Add all known markers to the map
         map.addMarkersAndZoom(Data.wristbands.getAll());
+
+        setUpdateFunction(view -> {
+            view.map.removeAllMarkers();
+            Data.wristbands.getAll().forEach(wb ->
+                    view.map.addMarker(wb));
+        });
     }
 
 }

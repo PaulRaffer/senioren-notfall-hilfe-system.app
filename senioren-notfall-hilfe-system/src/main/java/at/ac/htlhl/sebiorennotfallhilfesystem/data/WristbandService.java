@@ -22,11 +22,11 @@ public class WristbandService {
 		return Collections.unmodifiableList(wristbands);
 	}
 
-	public Wristband getWristbandByName(String name)
+	public Wristband getWristbandByDev_id(String dev_id)
 	{
-		for (Wristband w : wristbands) {
-			if (w.getName().equals(name)) {
-				return w;
+		for (Wristband wb : wristbands) {
+			if (wb.getDev_id().equals(dev_id)) {
+				return wb;
 			}
 		}
 		return null;
