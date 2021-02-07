@@ -40,22 +40,18 @@ public class MainView extends AppLayout {
 
     public MainView()
     {
-        Data.wristbands = new WristbandService();
-        for (int i = 0; i < 3; i++) {
-            Data.wristbands.add(new MqttWristband(
-                    "tcp://eu.thethings.network:1883",
-                    "ApplicationServer",
-                    "senioren-notfall-hilfe-system",
-                    "ttn-account-v2.xqhU5_c5SPEKLNDpg38Ah5er2XqEZI0Gxt_iobseDmQ",
-                    "#"));
-
-            /*Data.wristbands.add(new MqttWristband(
-                    "tcp://10.0.0.9:1883",
-                    "ApplicationServer",
-                    "my-new-application",
-                    "NNSXS.75BJZKY5I6IVDGAOVXLXOXOW6DB2Y7A534P53KA.JTZIWSFG6LADZD2YBLF2YJUV5PL2572J5TFC7N3AJENYOKCU6D7A",
-                    "#"));*/
-        }
+        Data.wristbands = new WristbandService(
+                "tcp://eu.thethings.network:1883",
+                "ApplicationServer",
+                "senioren-notfall-hilfe-system",
+                "ttn-account-v2.xqhU5_c5SPEKLNDpg38Ah5er2XqEZI0Gxt_iobseDmQ",
+                "#");
+        /*Data.wristbands = new WristbandService(
+                "tcp://10.0.0.9:1883",
+                "ApplicationServer",
+                "my-new-application",
+                "NNSXS.75BJZKY5I6IVDGAOVXLXOXOW6DB2Y7A534P53KA.JTZIWSFG6LADZD2YBLF2YJUV5PL2572J5TFC7N3AJENYOKCU6D7A",
+                "#"));*/
 
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();

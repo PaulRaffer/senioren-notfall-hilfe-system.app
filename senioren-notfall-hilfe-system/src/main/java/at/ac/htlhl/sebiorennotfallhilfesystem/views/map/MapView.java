@@ -1,22 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.MqttWristband;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;

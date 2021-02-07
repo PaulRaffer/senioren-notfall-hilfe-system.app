@@ -1,7 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.MqttWristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;

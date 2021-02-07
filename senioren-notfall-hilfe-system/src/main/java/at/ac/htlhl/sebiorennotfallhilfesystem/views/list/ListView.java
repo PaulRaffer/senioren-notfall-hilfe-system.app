@@ -34,6 +34,7 @@ public class ListView extends UpdateView<ListView> {
         grid.setItems(Data.wristbands.getAll());
         grid.setColumns(
                 "dev_id",
+                "metadata.time",
                 "payload_fields.status",
                 "payload_fields.latitude",
                 "payload_fields.longitude",
