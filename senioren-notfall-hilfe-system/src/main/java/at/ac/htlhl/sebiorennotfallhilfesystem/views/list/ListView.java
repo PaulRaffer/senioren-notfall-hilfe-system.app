@@ -31,7 +31,7 @@ public class ListView extends UpdateView<ListView> {
         setPadding(false);
         setSpacing(false);
 
-        grid.setItems(Data.wristbands.getAll());
+        grid.setItems(Data.getWristbandServiceInstance().getAll());
         grid.setColumns(
                 "dev_id",
                 "metadata.time",
@@ -45,6 +45,6 @@ public class ListView extends UpdateView<ListView> {
         add(grid);
 
         setUpdateFunction(view ->
-                view.grid.setItems(Data.wristbands.getAll()));
+                view.grid.setItems(Data.getWristbandServiceInstance().getAll()));
     }
 }

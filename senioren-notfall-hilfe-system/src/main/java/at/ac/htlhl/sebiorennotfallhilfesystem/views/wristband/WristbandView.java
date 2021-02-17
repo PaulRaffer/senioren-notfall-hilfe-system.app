@@ -27,7 +27,7 @@ public class WristbandView extends UpdateView<WristbandView> implements HasUrlPa
 	@Override
 	public void setParameter(BeforeEvent event, String wristbandName)
 	{
-		Wristband wb = Data.wristbands.getWristbandByDev_id(wristbandName);
+		Wristband wb = Data.getWristbandServiceInstance().getWristbandByDev_id(wristbandName);
 		add(new Text(wristbandName));
 		add(new Text(wb.getName()));
 		add(new Text(String.valueOf(wb.getPayload_fields().getLatitude())));

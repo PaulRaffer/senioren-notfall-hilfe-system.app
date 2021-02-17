@@ -32,11 +32,11 @@ public class MapView extends UpdateView<MapView> {
                 ui.navigate("wristband/"+e.getMarker().getDev_id())));
 
         // Add all known markers to the map
-        map.addMarkersAndZoom(Data.wristbands.getAll());
+        map.addMarkersAndZoom(Data.getWristbandServiceInstance().getAll());
 
         setUpdateFunction(view -> {
             view.map.removeAllMarkers();
-            Data.wristbands.getAll().forEach(wb ->
+            Data.getWristbandServiceInstance().getAll().forEach(wb ->
                     view.map.addMarker(wb));
         });
     }

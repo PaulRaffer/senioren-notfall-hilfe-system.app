@@ -14,27 +14,31 @@ import java.util.List;
 public class WristbandService {
 
 	private final List<Wristband> wristbands = new ArrayList<>();
+	private final MqttClient mqttClient;
 
 	public WristbandService(
 			final String broker, final String clientId,
 			final String appId, final String apiKey,
 			final String topic)
 	{
+		MqttClient mqttClientTemp;
 		try {
-			Data.mqttClient = new MqttClient(broker, clientId, new MemoryPersistence());
+			mqttClientTemp = new MqttClient(broker, clientId, new MemoryPersistence());
 			MqttConnectOptions options = new MqttConnectOptions();
 			options.setUserName(appId);
 			options.setPassword(apiKey.toCharArray());
 			options.setCleanSession(true);
-			Data.mqttClient.connect(options);
+			mqttClientTemp.connect(options);
 
-			Data.mqttClient.subscribe(topic, (t, msg) ->
+			mqttClientTemp.subscribe(topic, (t, msg) ->
 					readJson(new String(msg.getPayload()))
 			);
 		}
 		catch (MqttException e) {
+			mqttClientTemp = null;
 			e.printStackTrace();
 		}
+		mqttClient = mqttClientTemp;
 	}
 
 	private void readJson(String dataJson)
