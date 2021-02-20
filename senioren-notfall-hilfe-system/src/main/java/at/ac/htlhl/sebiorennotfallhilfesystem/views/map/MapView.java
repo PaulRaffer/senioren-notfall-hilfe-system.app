@@ -1,12 +1,11 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNWristbandService;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
 import com.vaadin.flow.router.RouteAlias;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "map", layout = MainView.class)
 @PageTitle("Map")
@@ -32,12 +31,11 @@ public class MapView extends UpdateView<MapView> {
                 ui.navigate("wristband/"+e.getMarker().getDev_id())));
 
         // Add all known markers to the map
-        map.addMarkersAndZoom(Data.getWristbandServiceInstance().getAll());
+        map.addMarkersAndZoom(TTNWristbandService.getInstance().getAll());
 
         setUpdateFunction(view -> {
             view.map.removeAllMarkers();
-            Data.getWristbandServiceInstance().getAll().forEach(wb ->
-                    view.map.addMarker(wb));
+            TTNWristbandService.getInstance().getAll().forEach(view.map::addMarker);
         });
     }
 

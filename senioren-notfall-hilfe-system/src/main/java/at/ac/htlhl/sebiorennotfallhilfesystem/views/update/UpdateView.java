@@ -1,6 +1,5 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.update;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
