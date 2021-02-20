@@ -1,6 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-public class WristbandMetadata {
+public class TTNWristbandMetadata {
 
 	private String time;
 	private double frequency;

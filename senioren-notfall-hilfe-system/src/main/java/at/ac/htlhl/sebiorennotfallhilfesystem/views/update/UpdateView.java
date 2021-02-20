@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 public class UpdateView<View> extends VerticalLayout {
 	private UpdateThread updateThread;
 	private UpdateFunction updateFunction;
-	private long pauseMillis = 500;
+	private long pauseMillis = 1000;
 
 	public interface UpdateFunction<View> {
 		void update(View view);

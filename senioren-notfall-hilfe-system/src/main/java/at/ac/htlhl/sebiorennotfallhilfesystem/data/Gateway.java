@@ -10,6 +10,7 @@ public class Gateway {
 	private int snr;
 	private int rf_chain;
 
+
 	public String getGtw_id() {
 		return gtw_id;
 	}

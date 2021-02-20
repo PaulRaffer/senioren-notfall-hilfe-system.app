@@ -1,6 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNData;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -35,7 +36,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 *
 	 * @see InternalMarkerClickEvent
 	 */
-    private final Map<Integer, Wristband> idToMarker = new HashMap<>();
+    private final Map<Integer, TTNData<Wristband>> idToMarker = new HashMap<>();
     private int nextMarkerId = 0;
 
 	public LeafletMap()
@@ -47,7 +48,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 		// add internal client side listener for marker clicks
         addListener(InternalMarkerClickEvent.class, e -> {
             // map id to server-side object
-            Wristband wristband = e.getId() == null ? null : idToMarker.get(e.getId());
+            TTNData<Wristband> wristband = e.getId() == null ? null : idToMarker.get(e.getId());
             // fire real event
             fireEvent(new MarkerClickEvent(this, true, wristband));
         });
@@ -57,11 +58,10 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * Add all given markers to the map and zoom/pan the map so that all markers are
 	 * visible.
 	 */
-	public void addMarkersAndZoom(List<Wristband> wristbands)
+	public void addMarkersAndZoom(List<TTNData<Wristband>> wristbands)
 	{
-		// Add all
+		// Add all markers to the map
 		wristbands.forEach(this::addMarker);
-
 		// find top left and bottom right, then zoom the map
 		double lat1 = wristbands.stream().map(s ->
 				s.getPayload_fields().getLatitude())
@@ -83,7 +83,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	/**
 	 * Add a marker to the map.
 	 */
-    public void addMarker(Wristband wristband)
+    public void addMarker(final TTNData<Wristband> wristband)
 	{
         // save id for later use in events
         idToMarker.put(nextMarkerId, wristband);
@@ -92,7 +92,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
         getElement().callJsFunction("addMarker",
 				wristband.getPayload_fields().getLatitude(),
 				wristband.getPayload_fields().getLongitude(),
-				wristband.getName(), nextMarkerId++);
+				wristband.getDev_id(), nextMarkerId++);
     }
 
     public void removeAllMarkers()
@@ -158,15 +158,15 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * {@link LeafletMap#addMarkerClickListener(ComponentEventListener)}
 	 */
     public static class MarkerClickEvent extends ComponentEvent<LeafletMap> {
-        private final Wristband marker;
+        private final TTNData<Wristband> marker;
 
-        public MarkerClickEvent(LeafletMap source, boolean fromClient, Wristband marker)
+        public MarkerClickEvent(LeafletMap source, boolean fromClient, TTNData<Wristband> marker)
 		{
             super(source, fromClient);
             this.marker = marker;
         }
 
-        public Wristband getMarker() {
+        public TTNData<Wristband> getMarker() {
             return marker;
         }
     }

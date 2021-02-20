@@ -1,11 +1,11 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.wristband;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Data;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNData;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
@@ -27,9 +27,9 @@ public class WristbandView extends UpdateView<WristbandView> implements HasUrlPa
 	@Override
 	public void setParameter(BeforeEvent event, String wristbandName)
 	{
-		Wristband wb = Data.getWristbandServiceInstance().getWristbandByDev_id(wristbandName);
+		TTNData<Wristband> wb = Data.getWristbandServiceInstance().getByDev_id(wristbandName);
 		add(new Text(wristbandName));
-		add(new Text(wb.getName()));
+		add(new Text(wb.getDev_id()));
 		add(new Text(String.valueOf(wb.getPayload_fields().getLatitude())));
 		add(new Text(String.valueOf(wb.getPayload_fields().getLongitude())));
 		add(new Text(String.valueOf(wb.getPayload_fields().getAltitude())));

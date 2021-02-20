@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MapView extends UpdateView<MapView> {
     private final LeafletMap map;
 
-    @Autowired
+    //@Autowired
     public MapView()
     {
         setId("map-view");
