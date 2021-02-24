@@ -1,21 +1,30 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-public class TTNWristbandMetadata {
+public class TTNMetadata extends Location<Double> {
 
+	private int airtime;
 	private String time;
 	private double frequency;
 	private String modulation;
 	private String data_rate;
-	private int airtime;
+	private String bit_rate;
 	private String coding_rate;
-	Gateway[] gateways;
+	private Gateway[] gateways;
 
+
+	public int getAirtime()
+	{
+		return airtime;
+	}
+	public void setAirtime(int airtime)
+	{
+		this.airtime = airtime;
+	}
 
 	public String getTime()
 	{
 		return time;
 	}
-
 	public void setTime(String time)
 	{
 		this.time = time;
@@ -25,7 +34,6 @@ public class TTNWristbandMetadata {
 	{
 		return frequency;
 	}
-
 	public void setFrequency(double frequency)
 	{
 		this.frequency = frequency;
@@ -35,7 +43,6 @@ public class TTNWristbandMetadata {
 	{
 		return modulation;
 	}
-
 	public void setModulation(String modulation)
 	{
 		this.modulation = modulation;
@@ -45,27 +52,24 @@ public class TTNWristbandMetadata {
 	{
 		return data_rate;
 	}
-
 	public void setData_rate(String data_rate)
 	{
 		this.data_rate = data_rate;
 	}
 
-	public int getAirtime()
+	public String getBit_rate()
 	{
-		return airtime;
+		return bit_rate;
 	}
-
-	public void setAirtime(int airtime)
+	public void setBit_rate(String bit_rate)
 	{
-		this.airtime = airtime;
+		this.bit_rate = bit_rate;
 	}
 
 	public String getCoding_rate()
 	{
 		return coding_rate;
 	}
-
 	public void setCoding_rate(String coding_rate)
 	{
 		this.coding_rate = coding_rate;
@@ -75,7 +79,6 @@ public class TTNWristbandMetadata {
 	{
 		return gateways;
 	}
-
 	public void setGateways(Gateway[] gateways)
 	{
 		this.gateways = gateways;

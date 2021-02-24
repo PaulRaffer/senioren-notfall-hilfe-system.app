@@ -1,6 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNWristbandService;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.MqttService;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTSMqttService;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -31,11 +32,11 @@ public class MapView extends UpdateView<MapView> {
                 ui.navigate("wristband/"+e.getMarker().getDev_id())));
 
         // Add all known markers to the map
-        map.addMarkersAndZoom(TTNWristbandService.getInstance().getAll());
+        //map.addMarkersAndZoom(TTSMqttService.getInstance().getAll());
 
         setUpdateFunction(view -> {
             view.map.removeAllMarkers();
-            TTNWristbandService.getInstance().getAll().forEach(view.map::addMarker);
+            //TTSMqttService.getInstance().getAll().forEach(view.map::addMarker);
         });
     }
 

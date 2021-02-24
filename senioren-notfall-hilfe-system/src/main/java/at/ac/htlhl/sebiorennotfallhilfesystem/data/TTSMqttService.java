@@ -8,38 +8,37 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TTNWristbandService {
+public class TTSMqttService {
 
-	private static TTNWristbandService instance = null;
+	private static TTSMqttService instance = null;
 
-	public static final String BROKER = "tcp://eu.thethings.network:1883";
-	//public static final String BROKER = "tcp://NetworkServer:1883";
+	//public static final String BROKER = "tcp://eu.thethings.network:1883";
+	public static final String BROKER = "tcp://NetworkServer:1883";
 	public static final String CLIENT_ID = "ApplicationServer";
-	public static final String APP_ID = "senioren-notfall-hilfe-system";
-	//public static final String APP_ID = "senioren-notfall-hilfe";
-	public static final String API_KEY = "ttn-account-v2.xqhU5_c5SPEKLNDpg38Ah5er2XqEZI0Gxt_iobseDmQ";
-	//public static final String API_KEY = "NNSXS.LZ6CC6BCP4PZXBTGFJISETZJVC7I7O76TFVSQ5Q.YNSPM6KJZ2EXEXQIHWZHI57XC5O733FNQS4XDC75FKNCBBD4BH6Q";
+	//public static final String APP_ID = "senioren-notfall-hilfe-system";
+	public static final String APP_ID = "senioren-notfall-hilfe";
+	//public static final String API_KEY = "ttn-account-v2.xqhU5_c5SPEKLNDpg38Ah5er2XqEZI0Gxt_iobseDmQ";
+	public static final String API_KEY = "NNSXS.LZ6CC6BCP4PZXBTGFJISETZJVC7I7O76TFVSQ5Q.YNSPM6KJZ2EXEXQIHWZHI57XC5O733FNQS4XDC75FKNCBBD4BH6Q";
 	public static final String TOPIC = "#";
 
 
-	public static synchronized TTNWristbandService getInstance()
+	public static synchronized TTSMqttService getInstance()
 	{
 		if (instance == null) {
-			instance = new TTNWristbandService(BROKER, CLIENT_ID, APP_ID, API_KEY, TOPIC);
+			instance = new TTSMqttService(BROKER, CLIENT_ID, APP_ID, API_KEY, TOPIC);
 		}
 		return instance;
 	}
 
 
-	private final List<TTNData<Wristband>> wristbands = new ArrayList<>();
+	private final List<TTSUplinkMessage<Wristband>> wristbands = new ArrayList<>();
 	private final MqttClient mqttClient;
 
-	public TTNWristbandService(
+	public TTSMqttService(
 			final String broker, final String clientId,
 			final String appId, final String apiKey,
 			final String topic)
@@ -71,8 +70,8 @@ public class TTNWristbandService {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			// https://www.baeldung.com/jackson-linkedhashmap-cannot-be-cast
-			final TTNData<Wristband> newWristband = mapper.readValue(dataJson, new TypeReference<TTNData<Wristband>>() {});
-			TTNData<Wristband> wb = getByDev_id(newWristband.getDev_id());
+			final TTSUplinkMessage<Wristband> newWristband = mapper.readValue(dataJson, new TypeReference<TTSUplinkMessage<Wristband>>() {});
+			TTSUplinkMessage<Wristband> wb = getByDev_id(newWristband.getEnd_device_ids().getDevice_id());
 			if (wb == null) {
 				add(newWristband);
 			}
@@ -85,22 +84,22 @@ public class TTNWristbandService {
 		}
 	}
 
-	public List<TTNData<Wristband>> getAll()
+	public List<TTSUplinkMessage<Wristband>> getAll()
 	{
 		return Collections.unmodifiableList(wristbands);
 	}
 
-	public TTNData<Wristband> getByDev_id(String dev_id)
+	public TTSUplinkMessage<Wristband> getByDev_id(String dev_id)
 	{
-		for (TTNData<Wristband> wb : wristbands) {
-			if (wb.getDev_id().equals(dev_id)) {
+		for (TTSUplinkMessage<Wristband> wb : wristbands) {
+			if (wb.getEnd_device_ids().getDevice_id().equals(dev_id)) {
 				return wb;
 			}
 		}
 		return null;
 	}
 
-	public void add(TTNData<Wristband> wristband)
+	public void add(TTSUplinkMessage<Wristband> wristband)
 	{
 		// protect concurrent access since MqttWristbandService is a singleton
 		synchronized (wristbands) {
