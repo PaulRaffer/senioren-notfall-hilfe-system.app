@@ -23,7 +23,8 @@ public class TTNData<T> {
 			int port,
 			int counter,
 			String payload_raw,
-			T payload_fields)
+			T payload_fields,
+			TTNWristbandMetadata metadata)
 	{
 		this.app_id = app_id;
 		this.dev_id = dev_id;
@@ -32,6 +33,7 @@ public class TTNData<T> {
 		this.counter = counter;
 		this.payload_raw = payload_raw;
 		this.payload_fields = payload_fields;
+		this.metadata = metadata;
 	}
 
 	public void set(final TTNData<T> wristband)
@@ -43,6 +45,7 @@ public class TTNData<T> {
 		this.counter = wristband.getCounter();
 		this.payload_raw = wristband.getPayload_raw();
 		this.payload_fields = wristband.getPayload_fields();
+		this.metadata = wristband.getMetadata();
 	}
 
 	public String getApp_id()
