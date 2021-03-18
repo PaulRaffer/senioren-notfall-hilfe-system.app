@@ -1,48 +1,57 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-public class TTNData<T> {
+// https://www.thethingsnetwork.org/docs/applications/mqtt/api.html
+public class TTNUplinkMessage<Payload> {
 
 	private String app_id;
 	private String dev_id;
 	private String hardware_serial;
 	private int port;
 	private int counter;
+	private boolean is_retry;
+	private boolean confirmed;
 	private String payload_raw;
-	private T payload_fields;
-	private TTNWristbandMetadata metadata;
+	private Payload payload_fields;
+	private TTNMetadata metadata;
 
 
-	public TTNData()
+	public TTNUplinkMessage()
 	{
 	}
 
-	public TTNData(
+	public TTNUplinkMessage(
 			String app_id,
 			String dev_id,
 			String hardware_serial,
 			int port,
 			int counter,
+			boolean is_retry,
+			boolean confirmed,
 			String payload_raw,
-			T payload_fields,
-			TTNWristbandMetadata metadata)
+			Payload payload_fields,
+			TTNMetadata metadata)
 	{
 		this.app_id = app_id;
 		this.dev_id = dev_id;
 		this.hardware_serial = hardware_serial;
 		this.port = port;
 		this.counter = counter;
+		this.is_retry = is_retry;
+		this.confirmed = confirmed;
 		this.payload_raw = payload_raw;
 		this.payload_fields = payload_fields;
 		this.metadata = metadata;
 	}
 
-	public void set(final TTNData<T> wristband)
+	public void set(final TTNUplinkMessage<Payload> wristband)
 	{
 		this.app_id = wristband.getApp_id();
 		this.dev_id = wristband.getDev_id();
 		this.hardware_serial = wristband.getHardware_serial();
 		this.port = wristband.getPort();
 		this.counter = wristband.getCounter();
+		this.is_retry = wristband.isIs_retry();
+		this.confirmed = wristband.isConfirmed();
 		this.payload_raw = wristband.getPayload_raw();
 		this.payload_fields = wristband.getPayload_fields();
 		this.metadata = wristband.getMetadata();
@@ -73,17 +82,27 @@ public class TTNData<T> {
 		return counter;
 	}
 
+	public boolean isIs_retry()
+	{
+		return is_retry;
+	}
+
+	public boolean isConfirmed()
+	{
+		return confirmed;
+	}
+
 	public String getPayload_raw()
 	{
 		return payload_raw;
 	}
 
-	public T getPayload_fields()
+	public Payload getPayload_fields()
 	{
 		return payload_fields;
 	}
 
-	public TTNWristbandMetadata getMetadata()
+	public TTNMetadata getMetadata()
 	{
 		return metadata;
 	}

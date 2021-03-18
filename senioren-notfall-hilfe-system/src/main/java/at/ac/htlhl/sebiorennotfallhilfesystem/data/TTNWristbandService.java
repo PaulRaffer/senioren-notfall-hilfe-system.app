@@ -8,7 +8,6 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +35,7 @@ public class TTNWristbandService {
 	}
 
 
-	private final List<TTNData<Wristband>> wristbands = new ArrayList<>();
+	private final List<TTNUplinkMessage<Wristband>> wristbands = new ArrayList<>();
 	private final MqttClient mqttClient;
 
 	public TTNWristbandService(
@@ -71,8 +70,8 @@ public class TTNWristbandService {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			// https://www.baeldung.com/jackson-linkedhashmap-cannot-be-cast
-			final TTNData<Wristband> newWristband = mapper.readValue(dataJson, new TypeReference<TTNData<Wristband>>() {});
-			TTNData<Wristband> wb = getByDev_id(newWristband.getDev_id());
+			final TTNUplinkMessage<Wristband> newWristband = mapper.readValue(dataJson, new TypeReference<TTNUplinkMessage<Wristband>>() {});
+			TTNUplinkMessage<Wristband> wb = getByDev_id(newWristband.getDev_id());
 			if (wb == null) {
 				add(newWristband);
 			}
@@ -85,14 +84,14 @@ public class TTNWristbandService {
 		}
 	}
 
-	public List<TTNData<Wristband>> getAll()
+	public List<TTNUplinkMessage<Wristband>> getAll()
 	{
 		return Collections.unmodifiableList(wristbands);
 	}
 
-	public TTNData<Wristband> getByDev_id(String dev_id)
+	public TTNUplinkMessage<Wristband> getByDev_id(String dev_id)
 	{
-		for (TTNData<Wristband> wb : wristbands) {
+		for (TTNUplinkMessage<Wristband> wb : wristbands) {
 			if (wb.getDev_id().equals(dev_id)) {
 				return wb;
 			}
@@ -100,7 +99,7 @@ public class TTNWristbandService {
 		return null;
 	}
 
-	public void add(TTNData<Wristband> wristband)
+	public void add(TTNUplinkMessage<Wristband> wristband)
 	{
 		// protect concurrent access since MqttWristbandService is a singleton
 		synchronized (wristbands) {

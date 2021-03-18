@@ -1,7 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.map;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Location;
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNData;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNUplinkMessage;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -36,7 +36,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 *
 	 * @see InternalMarkerClickEvent
 	 */
-    private final Map<Integer, TTNData<Wristband>> idToMarker = new HashMap<>();
+    private final Map<Integer, TTNUplinkMessage<Wristband>> idToMarker = new HashMap<>();
     private int nextMarkerId = 0;
 
 	public LeafletMap()
@@ -48,7 +48,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 		// add internal client side listener for marker clicks
         addListener(InternalMarkerClickEvent.class, e -> {
             // map id to server-side object
-            TTNData<Wristband> wristband = e.getId() == null ? null : idToMarker.get(e.getId());
+            TTNUplinkMessage<Wristband> wristband = e.getId() == null ? null : idToMarker.get(e.getId());
             // fire real event
             fireEvent(new MarkerClickEvent(this, true, wristband));
         });
@@ -58,7 +58,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * Add all given markers to the map and zoom/pan the map so that all markers are
 	 * visible.
 	 */
-	public void addMarkersAndZoom(List<TTNData<Wristband>> wristbands)
+	public void addMarkersAndZoom(List<TTNUplinkMessage<Wristband>> wristbands)
 	{
 		// Add all markers to the map
 		wristbands.forEach(this::addMarker);
@@ -83,7 +83,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	/**
 	 * Add a marker to the map.
 	 */
-    public void addMarker(final TTNData<Wristband> wristband)
+    public void addMarker(final TTNUplinkMessage<Wristband> wristband)
 	{
         // save id for later use in events
         idToMarker.put(nextMarkerId, wristband);
@@ -159,15 +159,15 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * {@link LeafletMap#addMarkerClickListener(ComponentEventListener)}
 	 */
     public static class MarkerClickEvent extends ComponentEvent<LeafletMap> {
-        private final TTNData<Wristband> marker;
+        private final TTNUplinkMessage<Wristband> marker;
 
-        public MarkerClickEvent(LeafletMap source, boolean fromClient, TTNData<Wristband> marker)
+        public MarkerClickEvent(LeafletMap source, boolean fromClient, TTNUplinkMessage<Wristband> marker)
 		{
             super(source, fromClient);
             this.marker = marker;
         }
 
-        public TTNData<Wristband> getMarker() {
+        public TTNUplinkMessage<Wristband> getMarker() {
             return marker;
         }
     }

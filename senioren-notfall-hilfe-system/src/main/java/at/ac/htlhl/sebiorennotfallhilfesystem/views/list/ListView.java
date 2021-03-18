@@ -1,6 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.list;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNData;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNUplinkMessage;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNWristbandService;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
@@ -13,7 +13,7 @@ import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
 @PageTitle("List")
 public class ListView extends UpdateView<ListView> {
 
-    private Grid<TTNData<Wristband>> grid = new Grid<>((Class<TTNData<Wristband>>)(Class)TTNData.class);
+    private Grid<TTNUplinkMessage<Wristband>> grid = new Grid<>((Class<TTNUplinkMessage<Wristband>>)(Class) TTNUplinkMessage.class);
 
     public ListView()
     {

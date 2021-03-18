@@ -1,6 +1,6 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.views.wristband;
 
-import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNData;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNUplinkMessage;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNWristbandService;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
@@ -27,7 +27,7 @@ public class WristbandView extends UpdateView<WristbandView> implements HasUrlPa
 	@Override
 	public void setParameter(BeforeEvent event, String wristbandName)
 	{
-		TTNData<Wristband> wb = TTNWristbandService.getInstance().getByDev_id(wristbandName);
+		TTNUplinkMessage<Wristband> wb = TTNWristbandService.getInstance().getByDev_id(wristbandName);
 		add(new Text(wristbandName));
 		add(new Text(wb.getDev_id()));
 		add(new Text(String.valueOf(wb.getPayload_fields().getLatitude())));
