@@ -70,7 +70,10 @@ public class TTNWristbandService {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			// https://www.baeldung.com/jackson-linkedhashmap-cannot-be-cast
-			final TTNUplinkMessage<Wristband> newWristband = mapper.readValue(dataJson, new TypeReference<TTNUplinkMessage<Wristband>>() {});
+			final TTNUplinkMessage<Wristband> newWristband =
+					mapper.readValue(dataJson, new TypeReference<TTNUplinkMessage<Wristband>>() {});
+			newWristband.getPayload_fields().setEmergency(
+					newWristband.getPayload_fields().getStatus() == Wristband.Status.EMERGENCY);
 			TTNUplinkMessage<Wristband> wb = getByDev_id(newWristband.getDev_id());
 			if (wb == null) {
 				add(newWristband);
