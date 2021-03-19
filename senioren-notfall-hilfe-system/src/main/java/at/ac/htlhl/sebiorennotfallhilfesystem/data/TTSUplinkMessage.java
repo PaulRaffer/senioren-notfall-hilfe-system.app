@@ -1,12 +1,12 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-public class TTSUplinkMessage<Payload> {
+// https://thethingsindustries.com/docs/reference/data-formats/
+public class TTSUplinkMessage<Payload> implements UplinkMessageI<Payload> {
 
 	public static class EndDeviceIds {
 		String device_id;
 		private static class ApplicationIds {
 			String application_id;
-
 
 			public String getApplication_id()
 			{
@@ -21,7 +21,6 @@ public class TTSUplinkMessage<Payload> {
 		String dev_eui;
 		String join_eui;
 		String dev_addr;
-
 
 		public String getDevice_id()
 		{
@@ -425,6 +424,10 @@ public class TTSUplinkMessage<Payload> {
 	{
 		return end_device_ids;
 	}
+	@Override
+	public String getDevice_id() {
+		return getEnd_device_ids().getDevice_id();
+	}
 	public void setEnd_device_ids(EndDeviceIds end_device_ids)
 	{
 		this.end_device_ids = end_device_ids;
@@ -452,6 +455,12 @@ public class TTSUplinkMessage<Payload> {
 	{
 		return uplink_message;
 	}
+	@Override
+	public Payload getPayload()
+	{
+		return getUplink_message().getDecoded_payload();
+	}
+
 	public void setUplink_message(UplinkMessage<Payload> uplink_message)
 	{
 		this.uplink_message = uplink_message;

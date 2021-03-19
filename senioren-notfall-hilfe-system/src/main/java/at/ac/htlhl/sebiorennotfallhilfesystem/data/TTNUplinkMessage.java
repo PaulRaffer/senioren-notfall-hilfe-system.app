@@ -1,7 +1,7 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
 // https://www.thethingsnetwork.org/docs/applications/mqtt/api.html
-public class TTNUplinkMessage<Payload> {
+public class TTNUplinkMessage<Payload> implements UplinkMessageI<Payload> {
 
 	private String app_id;
 	private String dev_id;
@@ -43,7 +43,7 @@ public class TTNUplinkMessage<Payload> {
 		this.metadata = metadata;
 	}
 
-	public void set(final TTNUplinkMessage<Payload> wristband)
+	public void set(TTNUplinkMessage<Payload> wristband)
 	{
 		this.app_id = wristband.getApp_id();
 		this.dev_id = wristband.getDev_id();
@@ -65,6 +65,11 @@ public class TTNUplinkMessage<Payload> {
 	public String getDev_id()
 	{
 		return dev_id;
+	}
+	@Override
+	public String getDevice_id()
+	{
+		return getDev_id();
 	}
 
 	public String getHardware_serial()
@@ -101,10 +106,16 @@ public class TTNUplinkMessage<Payload> {
 	{
 		return payload_fields;
 	}
+	@Override
+	public Payload getPayload()
+	{
+		return getPayload_fields();
+	}
 
 	public TTNMetadata getMetadata()
 	{
 		return metadata;
 	}
+
 
 }
