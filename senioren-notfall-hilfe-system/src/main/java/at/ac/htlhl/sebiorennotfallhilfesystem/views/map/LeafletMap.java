@@ -92,6 +92,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
         getElement().callJsFunction("addMarker",
 				wristband.getPayload_fields().getLatitude(),
 				wristband.getPayload_fields().getLongitude(),
+				wristband.getPayload_fields().getStatus().ordinal(),
 				wristband.getPayload_fields().isEmergency(),
 				wristband.getDev_id(), nextMarkerId++);
     }

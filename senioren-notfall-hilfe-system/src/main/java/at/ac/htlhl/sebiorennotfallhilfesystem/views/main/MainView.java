@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.*;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.settings.SettingsView;
+import at.ac.htlhl.sebiorennotfallhilfesystem.views.wristbands.WristbandsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -12,6 +13,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -40,21 +42,49 @@ public class MainView extends AppLayout {
 
     public MainView()
     {
+        LoginOverlay login = createLogin();
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
-        addToNavbar(createTopBar(header, menu));
+        addToNavbar(createTopBar(login, header, menu));
     }
 
-    private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu)
+    private VerticalLayout createTopBar(
+            LoginOverlay login, HorizontalLayout header, Tabs menu)
     {
+
+
         VerticalLayout layout = new VerticalLayout();
         layout.getThemeList().add("dark");
         layout.setWidthFull();
         layout.setSpacing(false);
         layout.setPadding(false);
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
-        layout.add(header, menu);
+        layout.add(login, header, menu);
         return layout;
+    }
+
+    private LoginOverlay createLogin()
+    {
+        // Login-component-object
+        LoginOverlay login = new LoginOverlay();
+        login.setTitle("Senioren-Notfall-Hilfe-System");
+        login.setDescription("");
+        login.addLoginListener(e -> {
+            if (e.getUsername().equals("test")
+                    && e.getPassword().equals("1234")) {
+                // Close login-overlay
+                login.close();
+            }
+            else {
+                // Don't disable when user entered
+                // wrong username or password.
+                login.setEnabled(true);
+            }
+        });
+
+        // Open login-overlay when page is loaded
+        login.setOpened(true);
+        return login;
     }
 
     private HorizontalLayout createHeader()
@@ -86,8 +116,9 @@ public class MainView extends AppLayout {
     private static Tab[] getAvailableTabs()
     {
         return new Tab[]{
-                createTab("Map", MapView.class),
-                createTab("List", ListView.class),
+                //createTab("Map", MapView.class),
+                //createTab("List", ListView.class),
+                createTab("Wristbands", WristbandsView.class),
                 createTab("Settings", SettingsView.class),
                 createTab("About", AboutView.class)};
     }

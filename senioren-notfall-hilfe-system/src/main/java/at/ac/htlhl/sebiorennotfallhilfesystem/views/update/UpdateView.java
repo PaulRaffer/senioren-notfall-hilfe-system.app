@@ -5,13 +5,16 @@ import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
+// Derive from this Class using the Curiously recurring template pattern!
+// https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
+// e.g. public class MyView extends UpdateView<MyView> { ... }
 public class UpdateView<View> extends VerticalLayout {
-	private UpdateThread updateThread;
-	private UpdateFunction updateFunction;
-	private long pauseMillis = 1000;
+	private UpdateThread updateThread;      // Background thread, which updates the view
+	private UpdateFunction updateFunction;  // Function, which updates the view
+	private long pauseMillis = 1000;        // Update every 1000 ms
 
-	public interface UpdateFunction<View> {
-		void update(View view);
+	public interface UpdateFunction<View> { // Lambda interface
+		void update(View view);             // Update object of subclass
 	}
 	protected void setUpdateFunction(UpdateFunction<View> f)
 	{
@@ -25,6 +28,7 @@ public class UpdateView<View> extends VerticalLayout {
 	@Override
 	protected void onAttach(AttachEvent e)
 	{
+		// Start new thread
 		updateThread = new UpdateThread(e.getUI(), this);
 		updateThread.start();
 	}
@@ -32,6 +36,7 @@ public class UpdateView<View> extends VerticalLayout {
 	@Override
 	protected void onDetach(DetachEvent e)
 	{
+		// Stop thread
 		updateThread.interrupt();
 		updateThread = null;
 	}
@@ -51,14 +56,14 @@ public class UpdateView<View> extends VerticalLayout {
 		{
 			try {
 				while (true) {
-					Thread.sleep(view.pauseMillis);
+					Thread.sleep(view.pauseMillis);  // Wait
 					ui.access(() -> {
-						updateFunction.update(view);
+						updateFunction.update(view); // Update view
 					});
 				}
 			}
 			catch (InterruptedException e) {
-				// We don't case if sleep was interrupted.
+				// We don't care if sleep was interrupted.
 			}
 		}
 	}
