@@ -135,10 +135,10 @@ class LeafletMap extends PolymerElement {
         let shadowUrl = "https://unpkg.com/leaflet@1.6.0/dist/images/marker-shadow.png";
 		let myIcon = L.icon({
 		    iconUrl: iconUrl,
-		    iconAnchor: [74, 120],
+		    iconAnchor: [15, 41],
 		    popupAnchor: [-3, -76],
 		    shadowUrl: shadowUrl,
-		    shadowAnchor: [74, 120]
+		    shadowAnchor: [15, 40]
 		});
 		
 		let opts = {
