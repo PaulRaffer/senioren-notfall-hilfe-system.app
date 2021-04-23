@@ -126,19 +126,19 @@ class LeafletMap extends PolymerElement {
     	
         let iconUrl =
             emergency ? // Emergency-marker:
-                "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png"
+                "https://raw.githubusercontent.com/PaulRaffer/map-marker/main/28x45/red.png"
             : status === 1 ? // Low-battery-marker:
-                "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png"
+                "https://raw.githubusercontent.com/PaulRaffer/map-marker/main/28x45/orange.png"
             : // Default-marker:
-                "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png";
+                "https://raw.githubusercontent.com/PaulRaffer/map-marker/main/28x45/green.png";
 
         let shadowUrl = "https://unpkg.com/leaflet@1.6.0/dist/images/marker-shadow.png";
 		let myIcon = L.icon({
 		    iconUrl: iconUrl,
-		    iconAnchor: [15, 41],
+		    iconAnchor: [14, 45],
 		    popupAnchor: [-3, -76],
 		    shadowUrl: shadowUrl,
-		    shadowAnchor: [15, 40]
+		    shadowAnchor: [14, 40]
 		});
 		
 		let opts = {
