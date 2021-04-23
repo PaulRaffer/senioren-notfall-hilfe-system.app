@@ -2,61 +2,64 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
 import com.vaadin.flow.component.button.Button;
 
-public class Wristband extends Location<Double> implements HasUpdateFieldsI {
+public class Wristband
+        extends Location<Double>
+        implements HasUpdateFieldsI {
+
+    public enum Status {
+        OK,
+        LOW_BATTERY,
+        EMERGENCY,
+    }
+
+    private Status status;
+    private double voltage;
+    private double hdop;
+
+    private boolean emergency;
 
 
-	public enum Status {
-		OK,
-		LOW_BATTERY,
-		EMERGENCY,
-	}
+    public Wristband()
+    {
+        super((double) 0, (double) 0, (double) 0);
+    }
 
-	private Status status;
-	private double voltage;
-	private double hdop;
+    public Location<Double> getLocation()
+    {
+        return new Location<>(
+                getLatitude(), getLongitude(), getAltitude());
+    }
 
-	private boolean emergency;
+    public Status getStatus()
+    {
+        return status;
+    }
 
+    public double getVoltage()
+    {
+        return voltage;
+    }
 
-	public Wristband()
-	{
-		super((double) 0, (double) 0, (double) 0);
-	}
+    public double getHdop()
+    {
+        return hdop;
+    }
 
-	public Location<Double> getLocation()
-	{
-		return new Location<>(getLatitude(), getLongitude(), getAltitude());
-	}
+    public boolean isEmergency()
+    {
+        return emergency;
+    }
 
-	public Status getStatus()
-	{
-		return status;
-	}
+    @Override
+    public void updateFields()
+    {
+        // Uptate emergency-variable
+        emergency = (getStatus() == Status.EMERGENCY);
+    }
 
-	public double getVoltage()
-	{
-		return voltage;
-	}
-
-	public double getHdop()
-	{
-		return hdop;
-	}
-
-	public boolean isEmergency()
-	{
-		return emergency;
-	}
-
-	@Override
-	public void updateFields()
-	{
-		emergency = (getStatus() == Status.EMERGENCY);
-	}
-
-	public void endEmergency()
-	{
-		emergency = false;
-	}
+    public void endEmergency()
+    {
+        emergency = false;
+    }
 
 }

@@ -21,15 +21,15 @@ import com.vaadin.flow.router.RouterLink;
 @PageTitle("Wristbands")
 public class WristbandsView extends SplitLayout {
 
-	public WristbandsView()
-	{
-		setId("wristbands-view");
+    public WristbandsView()
+    {
+        setId("wristbands-view");
 
-		setSizeFull();
-		setOrientation(Orientation.VERTICAL);
+        setSizeFull();
+        setOrientation(Orientation.VERTICAL);
 
-		addToPrimary(new ListView());
-		addToSecondary(new MapView());
-	}
+        addToPrimary(new ListView());
+        addToSecondary(new MapView());
+    }
 
 }

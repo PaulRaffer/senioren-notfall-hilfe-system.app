@@ -5,66 +5,74 @@ import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-// Derive from this Class using the Curiously recurring template pattern!
+// Derive from this Class using the
+// Curiously recurring template pattern!
 // https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
 // e.g. public class MyView extends UpdateView<MyView> { ... }
 public class UpdateView<View> extends VerticalLayout {
-	private UpdateThread updateThread;      // Background thread, which updates the view
-	private UpdateFunction updateFunction;  // Function, which updates the view
-	private long pauseMillis = 1000;        // Update every 1000 ms
 
-	public interface UpdateFunction<View> { // Lambda interface
-		void update(View view);             // Update object of subclass
-	}
-	protected void setUpdateFunction(UpdateFunction<View> f)
-	{
-		updateFunction = f;
-	}
-	protected void setUpdatePause(long millis)
-	{
-		pauseMillis = millis;
-	}
+    // Background thread, which updates the view
+    private UpdateThread updateThread;
 
-	@Override
-	protected void onAttach(AttachEvent e)
-	{
-		// Start new thread
-		updateThread = new UpdateThread(e.getUI(), this);
-		updateThread.start();
-	}
+    // Function, which updates the view
+    private UpdateFunction updateFunction;
 
-	@Override
-	protected void onDetach(DetachEvent e)
-	{
-		// Stop thread
-		updateThread.interrupt();
-		updateThread = null;
-	}
+    private long pauseMillis = 2000; // Update every 2 s
 
-	private class UpdateThread extends Thread {
-		private final UI ui;
-		private final UpdateView view;
+    public interface UpdateFunction<View> { // Lambda interface
+        // Update object of subclass
+        void update(View view);
+    }
+    protected void setUpdateFunction(UpdateFunction<View> f)
+    {
+        updateFunction = f;
+    }
+    protected void setUpdatePause(long millis)
+    {
+        pauseMillis = millis;
+    }
 
-		public UpdateThread(final UI ui, final UpdateView view)
-		{
-			this.ui = ui;
-			this.view = view;
-		}
+    @Override
+    protected void onAttach(AttachEvent e)
+    {
+        // Start new thread
+        updateThread = new UpdateThread(e.getUI(), this);
+        updateThread.start();
+    }
 
-		@Override
-		public void run()
-		{
-			try {
-				while (true) {
-					Thread.sleep(view.pauseMillis);  // Wait
-					ui.access(() -> {
-						updateFunction.update(view); // Update view
-					});
-				}
-			}
-			catch (InterruptedException e) {
-				// We don't care if sleep was interrupted.
-			}
-		}
-	}
+    @Override
+    protected void onDetach(DetachEvent e)
+    {
+        // Stop thread
+        updateThread.interrupt();
+        updateThread = null;
+    }
+
+    private class UpdateThread extends Thread {
+        private final UI ui;
+        private final UpdateView view;
+
+        public UpdateThread(
+                final UI ui, final UpdateView view)
+        {
+            this.ui = ui;
+            this.view = view;
+        }
+
+        @Override
+        public void run()
+        {
+            try {
+                while (true) {
+                    Thread.sleep(view.pauseMillis); // Wait
+                    ui.access(() -> { // Lock session
+                        updateFunction.update(view); // Update view
+                    });
+                }
+            }
+            catch (InterruptedException e) {
+                // We don't care if sleep was interrupted.
+            }
+        }
+    }
 }

@@ -14,7 +14,9 @@ import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
 @PageTitle("List")
 public class ListView extends UpdateView<ListView> {
 
-    private final Grid<TTNUplinkMessage<Wristband>> grid = new Grid<>((Class<TTNUplinkMessage<Wristband>>)(Class) TTNUplinkMessage.class);
+    private final Grid<TTNUplinkMessage<Wristband>> grid =
+            new Grid<>((Class<TTNUplinkMessage<Wristband>>)(Class)
+                    TTNUplinkMessage.class);
 
     public ListView()
     {
@@ -28,8 +30,10 @@ public class ListView extends UpdateView<ListView> {
         grid.setColumns(
                 "dev_id",
                 "metadata.time");
-        grid.addColumn(wb -> wb.getPayload_fields().getStatus())   .setHeader("Status");
-        grid.addColumn(wb -> wb.getPayload_fields().isEmergency()) .setHeader("Emergency");
+        grid.addColumn(wb -> wb.getPayload_fields().getStatus())
+                .setHeader("Status");
+        grid.addColumn(wb -> wb.getPayload_fields().isEmergency())
+                .setHeader("Emergency");
         grid.addComponentColumn(wb -> {
             Button endEmergencyBtn = new Button("End");
             endEmergencyBtn.setEnabled(
@@ -38,14 +42,21 @@ public class ListView extends UpdateView<ListView> {
                     wb.getPayload_fields().endEmergency());
             return endEmergencyBtn;
         });
-        grid.addColumn(wb -> wb.getPayload_fields().getLatitude()) .setHeader("Latitude");
-        grid.addColumn(wb -> wb.getPayload_fields().getLongitude()).setHeader("Longitude");
-        grid.addColumn(wb -> wb.getPayload_fields().getAltitude()) .setHeader("Altitude");
-        grid.addColumn(wb -> wb.getPayload_fields().getVoltage())  .setHeader("Voltage");
-        grid.addColumn(wb -> wb.getPayload_fields().getHdop())     .setHeader("Hdop");
+        grid.addColumn(wb -> wb.getPayload_fields().getLatitude())
+                .setHeader("Latitude");
+        grid.addColumn(wb -> wb.getPayload_fields().getLongitude())
+                .setHeader("Longitude");
+        grid.addColumn(wb -> wb.getPayload_fields().getAltitude())
+                .setHeader("Altitude");
+        grid.addColumn(wb -> wb.getPayload_fields().getVoltage())
+                .setHeader("Voltage");
+        grid.addColumn(wb -> wb.getPayload_fields().getHdop())
+                .setHeader("Hdop");
 
-        setUpdateFunction(view -> grid.getDataProvider().refreshAll());
+        setUpdateFunction(view ->
+                grid.getDataProvider().refreshAll());
 
         add(grid);
     }
+
 }

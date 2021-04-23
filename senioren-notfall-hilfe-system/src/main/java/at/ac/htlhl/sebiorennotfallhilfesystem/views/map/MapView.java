@@ -11,9 +11,9 @@ import com.vaadin.flow.router.RouteAlias;
 @PageTitle("Map")
 @RouteAlias(value = "", layout = MainView.class)
 public class MapView extends UpdateView<MapView> {
+
     private final LeafletMap map;
 
-    //@Autowired
     public MapView()
     {
         setId("map-view");
@@ -27,15 +27,19 @@ public class MapView extends UpdateView<MapView> {
         add(map);
 
         // Register for marker clicks
-        map.addMarkerClickListener(e -> getUI().ifPresent(ui ->
-                ui.navigate("wristband/"+e.getMarker().getDev_id())));
+        map.addMarkerClickListener(e ->
+            getUI().ifPresent(ui ->
+                ui.navigate(
+                    "wristband/"+e.getMarker().getDev_id())));
 
         // Add all known markers to the map
-        map.addMarkersAndZoom(MQTTService.getInstance().getAll());
+        map.addMarkersAndZoom(
+                MQTTService.getInstance().getAll());
 
         setUpdateFunction(view -> {
             view.map.removeAllMarkers();
-            MQTTService.getInstance().getAll().forEach(view.map::addMarker);
+            MQTTService.getInstance().getAll()
+                    .forEach(view.map::addMarker);
         });
     }
 

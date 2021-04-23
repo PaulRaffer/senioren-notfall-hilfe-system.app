@@ -124,15 +124,15 @@ class LeafletMap extends PolymerElement {
      */
     addMarker(latitude, longitude, status, emergency, markerText, markerId) {
     	
-    	// use default marker icons from Leaflet directly
-        let iconUrl = "./marker_rot.png";
-            /*emergency ?
-                "img/marker_rot.png"//"https://media4.giphy.com/media/3o6Ztk19RBa8nu8icg/giphy.gif"
-            : status == 1 ?
+        let iconUrl =
+            emergency ? // Emergency-marker:
                 "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png"
-            :
+            : status === 1 ? // Low-battery-marker:
+                "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png"
+            : // Default-marker:
                 "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png";
-		*/let shadowUrl = "https://unpkg.com/leaflet@1.6.0/dist/images/marker-shadow.png";
+
+        let shadowUrl = "https://unpkg.com/leaflet@1.6.0/dist/images/marker-shadow.png";
 		let myIcon = L.icon({
 		    iconUrl: iconUrl,
 		    iconAnchor: [74, 120],
