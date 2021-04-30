@@ -17,7 +17,7 @@ public class UpdateView<View> extends VerticalLayout {
     // Function, which updates the view
     private UpdateFunction updateFunction;
 
-    private long pauseMillis = 2000; // Update every 2 s
+    private long pauseMillis = 10000; // Update every 10 s
 
     public interface UpdateFunction<View> { // Lambda interface
         // Update object of subclass

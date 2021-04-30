@@ -126,7 +126,7 @@ class LeafletMap extends PolymerElement {
     	
         let iconUrl =
             emergency ? // Emergency-marker:
-                "https://raw.githubusercontent.com/PaulRaffer/map-marker/main/28x45/red.png"
+                "https://raw.githubusercontent.com/PaulRaffer/map-marker/main/28x45/red-blink-100ms.gif"
             : status === 1 ? // Low-battery-marker:
                 "https://raw.githubusercontent.com/PaulRaffer/map-marker/main/28x45/orange.png"
             : // Default-marker:

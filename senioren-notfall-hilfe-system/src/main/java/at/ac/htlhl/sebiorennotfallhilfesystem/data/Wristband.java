@@ -1,10 +1,8 @@
 package at.ac.htlhl.sebiorennotfallhilfesystem.data;
 
-import com.vaadin.flow.component.button.Button;
-
 public class Wristband
         extends Location<Double>
-        implements HasUpdateFieldsI {
+        implements HasEmergencyI {
 
     public enum Status {
         OK,
@@ -45,9 +43,16 @@ public class Wristband
         return hdop;
     }
 
+    @Override
     public boolean isEmergency()
     {
         return emergency;
+    }
+
+    @Override
+    public void setEmergency(boolean emergency)
+    {
+        this.emergency = emergency;
     }
 
     @Override
@@ -57,6 +62,13 @@ public class Wristband
         emergency = (getStatus() == Status.EMERGENCY);
     }
 
+    @Override
+    public void update(HasEmergencyI u) {
+
+        this.emergency = u.isEmergency();
+    }
+
+    @Override
     public void endEmergency()
     {
         emergency = false;

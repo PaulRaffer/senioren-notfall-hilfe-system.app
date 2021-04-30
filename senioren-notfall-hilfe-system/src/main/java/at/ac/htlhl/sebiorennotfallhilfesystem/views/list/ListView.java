@@ -2,6 +2,7 @@ package at.ac.htlhl.sebiorennotfallhilfesystem.views.list;
 
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTNUplinkMessage;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.MQTTService;
+import at.ac.htlhl.sebiorennotfallhilfesystem.data.TTSUplinkMessage;
 import at.ac.htlhl.sebiorennotfallhilfesystem.data.Wristband;
 import at.ac.htlhl.sebiorennotfallhilfesystem.views.update.UpdateView;
 import com.vaadin.flow.component.button.Button;
@@ -14,9 +15,9 @@ import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
 @PageTitle("List")
 public class ListView extends UpdateView<ListView> {
 
-    private final Grid<TTNUplinkMessage<Wristband>> grid =
-            new Grid<>((Class<TTNUplinkMessage<Wristband>>)(Class)
-                    TTNUplinkMessage.class);
+    private final Grid<TTSUplinkMessage<Wristband>> grid =
+            new Grid<>((Class<TTSUplinkMessage<Wristband>>)(Class)
+                    TTSUplinkMessage.class);
 
     public ListView()
     {
@@ -27,30 +28,31 @@ public class ListView extends UpdateView<ListView> {
         setSpacing(false);
 
         grid.setItems(MQTTService.getInstance().getAll());
-        grid.setColumns(
-                "dev_id",
-                "metadata.time");
-        grid.addColumn(wb -> wb.getPayload_fields().getStatus())
+        /*grid.setColumns(
+                MQTTService.networkServer == MQTTService.NetworkServer.TTN ? "dev_id" : "application_ids.device_id",
+                "metadata.time");*/
+        grid.addColumn(TTSUplinkMessage::getDevice_id).setHeader("DevId");
+        grid.addColumn(wb -> wb.getPayload().getStatus())
                 .setHeader("Status");
-        grid.addColumn(wb -> wb.getPayload_fields().isEmergency())
+        grid.addColumn(wb -> wb.getPayload().isEmergency())
                 .setHeader("Emergency");
         grid.addComponentColumn(wb -> {
             Button endEmergencyBtn = new Button("End");
             endEmergencyBtn.setEnabled(
-                    wb.getPayload_fields().isEmergency());
+                    wb.getPayload().isEmergency());
             endEmergencyBtn.addClickListener(event ->
-                    wb.getPayload_fields().endEmergency());
+                    wb.getPayload().endEmergency());
             return endEmergencyBtn;
         });
-        grid.addColumn(wb -> wb.getPayload_fields().getLatitude())
+        grid.addColumn(wb -> wb.getPayload().getLatitude())
                 .setHeader("Latitude");
-        grid.addColumn(wb -> wb.getPayload_fields().getLongitude())
+        grid.addColumn(wb -> wb.getPayload().getLongitude())
                 .setHeader("Longitude");
-        grid.addColumn(wb -> wb.getPayload_fields().getAltitude())
+        grid.addColumn(wb -> wb.getPayload().getAltitude())
                 .setHeader("Altitude");
-        grid.addColumn(wb -> wb.getPayload_fields().getVoltage())
+        grid.addColumn(wb -> wb.getPayload().getVoltage())
                 .setHeader("Voltage");
-        grid.addColumn(wb -> wb.getPayload_fields().getHdop())
+        grid.addColumn(wb -> wb.getPayload().getHdop())
                 .setHeader("Hdop");
 
         setUpdateFunction(view ->

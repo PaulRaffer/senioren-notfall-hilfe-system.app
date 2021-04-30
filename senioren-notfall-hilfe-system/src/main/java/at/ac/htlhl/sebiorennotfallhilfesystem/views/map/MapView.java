@@ -26,12 +26,6 @@ public class MapView extends UpdateView<MapView> {
         map.setWidthFull();
         add(map);
 
-        // Register for marker clicks
-        map.addMarkerClickListener(e ->
-            getUI().ifPresent(ui ->
-                ui.navigate(
-                    "wristband/"+e.getMarker().getDev_id())));
-
         // Add all known markers to the map
         map.addMarkersAndZoom(
                 MQTTService.getInstance().getAll());

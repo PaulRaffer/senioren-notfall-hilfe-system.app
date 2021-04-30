@@ -5,5 +5,4 @@ import javax.validation.Payload;
 public interface UplinkMessageI<Payload> {
 	String getDevice_id();
 	Payload getPayload();
-
 }
