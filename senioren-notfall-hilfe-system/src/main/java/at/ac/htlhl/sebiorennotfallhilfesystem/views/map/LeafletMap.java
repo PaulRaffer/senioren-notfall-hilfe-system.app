@@ -37,7 +37,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 *
 	 * @see InternalMarkerClickEvent
 	 */
-    private final Map<Integer, TTSUplinkMessage<Wristband>> idToMarker = new HashMap<>();
+    private final Map<Integer, TTNUplinkMessage<Wristband>> idToMarker = new HashMap<>();
     private int nextMarkerId = 0;
 
 	public LeafletMap()
@@ -49,7 +49,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 		// add internal client side listener for marker clicks
         addListener(InternalMarkerClickEvent.class, e -> {
             // map id to server-side object
-            TTSUplinkMessage<Wristband> wristband = e.getId() == null ? null : idToMarker.get(e.getId());
+            TTNUplinkMessage<Wristband> wristband = e.getId() == null ? null : idToMarker.get(e.getId());
             // fire real event
             fireEvent(new MarkerClickEvent(this, true, wristband));
         });
@@ -59,7 +59,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * Add all given markers to the map and zoom/pan the map so that all markers are
 	 * visible.
 	 */
-	public void addMarkersAndZoom(List<TTSUplinkMessage<Wristband>> wristbands)
+	public void addMarkersAndZoom(List<TTNUplinkMessage<Wristband>> wristbands)
 	{
 		// Add all markers to the map
 		wristbands.forEach(this::addMarker);
@@ -84,7 +84,7 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	/**
 	 * Add a marker to the map.
 	 */
-    public void addMarker(final TTSUplinkMessage<Wristband> wristband)
+    public void addMarker(final TTNUplinkMessage<Wristband> wristband)
 	{
         // save id for later use in events
         idToMarker.put(nextMarkerId, wristband);
@@ -161,15 +161,15 @@ public class LeafletMap extends PolymerTemplate<TemplateModel> implements HasSiz
 	 * {@link LeafletMap#addMarkerClickListener(ComponentEventListener)}
 	 */
     public static class MarkerClickEvent extends ComponentEvent<LeafletMap> {
-        private final TTSUplinkMessage<Wristband> marker;
+        private final TTNUplinkMessage<Wristband> marker;
 
-        public MarkerClickEvent(LeafletMap source, boolean fromClient, TTSUplinkMessage<Wristband> marker)
+        public MarkerClickEvent(LeafletMap source, boolean fromClient, TTNUplinkMessage<Wristband> marker)
 		{
             super(source, fromClient);
             this.marker = marker;
         }
 
-        public TTSUplinkMessage<Wristband> getMarker() {
+        public TTNUplinkMessage<Wristband> getMarker() {
             return marker;
         }
     }

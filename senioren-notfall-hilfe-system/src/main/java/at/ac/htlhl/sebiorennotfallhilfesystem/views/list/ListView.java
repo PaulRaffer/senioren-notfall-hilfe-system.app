@@ -15,9 +15,9 @@ import at.ac.htlhl.sebiorennotfallhilfesystem.views.main.MainView;
 @PageTitle("List")
 public class ListView extends UpdateView<ListView> {
 
-    private final Grid<TTSUplinkMessage<Wristband>> grid =
-            new Grid<>((Class<TTSUplinkMessage<Wristband>>)(Class)
-                    TTSUplinkMessage.class);
+    private final Grid<TTNUplinkMessage<Wristband>> grid =
+            new Grid<>((Class<TTNUplinkMessage<Wristband>>)(Class)
+                    TTNUplinkMessage.class);
 
     public ListView()
     {
@@ -31,7 +31,7 @@ public class ListView extends UpdateView<ListView> {
         /*grid.setColumns(
                 MQTTService.networkServer == MQTTService.NetworkServer.TTN ? "dev_id" : "application_ids.device_id",
                 "metadata.time");*/
-        grid.addColumn(TTSUplinkMessage::getDevice_id).setHeader("DevId");
+        grid.addColumn(TTNUplinkMessage::getDevice_id).setHeader("DevId");
         grid.addColumn(wb -> wb.getPayload().getStatus())
                 .setHeader("Status");
         grid.addColumn(wb -> wb.getPayload().isEmergency())

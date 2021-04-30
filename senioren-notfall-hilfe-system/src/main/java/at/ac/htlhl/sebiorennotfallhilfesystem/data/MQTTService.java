@@ -16,12 +16,12 @@ import static java.lang.Math.abs;
 
 public class MQTTService<UplinkMessage extends UplinkMessageI<? extends HasEmergencyI>> {
 
-    private static MQTTService<TTSUplinkMessage<Wristband>> instance = null;
+    private static MQTTService<TTNUplinkMessage<Wristband>> instance = null;
     public static enum NetworkServer {
        TTN,
        TTS,
     }
-    public static NetworkServer networkServer = NetworkServer.TTS;
+    public static NetworkServer networkServer = NetworkServer.TTN;
     public static final String BROKER = networkServer == NetworkServer.TTN ? "tcp://eu.thethings.network:1883" : "tcp://NetworkServer:1883";
     public static final String CLIENT_ID = "ApplicationServer";
     public static final String APP_ID = networkServer == NetworkServer.TTN ? "senioren-notfall-hilfe-system" : "test-app";
@@ -31,12 +31,12 @@ public class MQTTService<UplinkMessage extends UplinkMessageI<? extends HasEmerg
     public static final String TOPIC = "#";
 
 
-    public static synchronized MQTTService<TTSUplinkMessage<Wristband>> getInstance()
+    public static synchronized MQTTService<TTNUplinkMessage<Wristband>> getInstance()
     {
         if (instance == null) {
             ObjectMapper mapper = new ObjectMapper();
-            instance = new MQTTService<TTSUplinkMessage<Wristband>>(
-                    mapper.getTypeFactory().constructParametricType(TTSUplinkMessage.class, Wristband.class), //new TypeReference<TTNUplinkMessage<Wristband>>() {},
+            instance = new MQTTService<TTNUplinkMessage<Wristband>>(
+                    mapper.getTypeFactory().constructParametricType(TTNUplinkMessage.class, Wristband.class), //new TypeReference<TTNUplinkMessage<Wristband>>() {},
                     BROKER, CLIENT_ID, APP_ID, API_KEY, TOPIC);
         }
         return instance;
